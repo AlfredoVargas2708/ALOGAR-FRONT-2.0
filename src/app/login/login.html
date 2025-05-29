@@ -1,0 +1,77 @@
+<div class="login-container">
+    <div class="login-card">
+        <h1 class="login-title">Log In</h1>
+
+        <form class="login-form" [formGroup]="loginForm">
+            <!-- Role Selection -->
+            <div class="form-header">
+                <div class="form-icon">
+                    <img *ngFor="let role of roleList" [src]="roles[role].icon" [alt]="roles[role].label + ' Icon'"
+                        class="icon-img" [class.hidden]="role !== this.role" [class]="getAnimationClass()" />
+                </div>
+
+                <div class="role-selector">
+                    <button type="button" *ngFor="let role of roleList" (click)="changeRole(role)" class="role-button"
+                        [class.active]="isActive(role)">
+                        {{ roles[role].label }}
+                    </button>
+                </div>
+            </div>
+            <!-- Form Fields -->
+            <div class="form-body">
+                <div class="form-fields">
+                    <label [for]="role + 'Name'">{{ role }} Name</label>
+                    <input type="text" [id]="role + 'Name'" [name]="role + ' Name'" placeholder="Enter your name" formControlName="username"/>
+
+                    <label [for]="role + 'Password'">Password</label>
+                    <input type="password" [id]="role + 'Password'" name="Password" placeholder="Enter your password" formControlName="password"/>
+                </div>
+            </div>
+            <!-- Form Footer -->
+            <div class="form-footer">
+                <button type="button" class="login-button" (click)="login()">
+                    Log In
+                </button>
+                <button type="button" class="register-button" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" #registerModal>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Modal Title -->
+                    <h1 class="modal-title fs-5" id="registerModalLabel">Register</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form class="register-form" [formGroup]="registerForm">
+                        <!-- Register Form Fields -->
+                        <div class="form-fields">
+                            <label for="registerName">Name</label>
+                            <input type="text" id="registerName" name="registerName" placeholder="Enter your name" formControlName="username" />
+
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" name="registerPassword" placeholder="Enter your password" formControlName="password" />
+
+                            <label for="role">Role</label>
+                            <select id="role" name="role" formControlName="role">
+                                <option [value]="roles[role].label" *ngFor="let role of roleList">{{ roles[role].label }}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="register()">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
