@@ -4,6 +4,7 @@ import { Users } from '../../services/users.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { Modal } from 'bootstrap'
+import { Router } from '@angular/router';
 
 type UserRole = 'Employee' | 'Admin';
 type SlideDirection = 'left' | 'right';
@@ -39,9 +40,9 @@ export class Login {
   readonly roleList: UserRole[] = ['Employee', 'Admin'];
 
   loginForm: FormGroup;
-  registerForm: FormGroup;
+  registerForm: FormGroup
 
-  constructor(private usersService: Users, private fb: FormBuilder) {
+  constructor(private usersService: Users, private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       username: [''],
       password: [''],
@@ -122,16 +123,24 @@ export class Login {
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: false,
-        }).then(() => {
-          // Redirect or perform any other action after successful login
-        })
+        });
+
+        // Navegación después de cerrar el alert
+        setTimeout(() => {
+          console.log(response)
+          if (this.role.toLowerCase() === 'employee') {
+            this.router.navigate([`/home/employee/${response.user.username}`]);
+          } else if (this.role.toLowerCase() === 'admin') {
+            this.router.navigate([`/home/admin`]);
+          }
+        }, 1000);
       },
-      error: () => {
+      error: (error) => {
+        console.error('Login error:', error);
         Swal.fire({
           title: 'Login Failed',
-          text: 'Invalid username, password or role',
+          text: error.error?.message || 'Invalid credentials',
           icon: 'error',
-          confirmButtonText: 'OK',
           position: 'top-end',
           toast: true,
           timer: 3000,
