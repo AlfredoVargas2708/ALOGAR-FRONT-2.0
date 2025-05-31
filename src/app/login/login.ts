@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Users } from '../../services/users.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import Swal from 'sweetalert2'
-import { Modal } from 'bootstrap'
+import Swal from 'sweetalert2';
+import { Modal } from 'bootstrap';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 
 type UserRole = 'Employee' | 'Admin';
 type SlideDirection = 'left' | 'right';
@@ -21,10 +22,11 @@ interface RoleConfig {
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class Login {
+export class Login implements AfterViewInit {
   role: UserRole = 'Admin';
   slideDirection: SlideDirection = 'right';
   registerModalInstance?: Modal;
+  private destroy$ = new Subject<void>();
 
   readonly roles: Record<UserRole, RoleConfig> = {
     Employee: {
@@ -42,6 +44,9 @@ export class Login {
   loginForm: FormGroup;
   registerForm: FormGroup
 
+  @ViewChild('passwordInput', { static: true }) passwordInput!: ElementRef;
+  @ViewChild('usernameInput', { static: true }) usernameInput!: ElementRef;
+
   constructor(private usersService: Users, private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       username: [''],
@@ -55,10 +60,58 @@ export class Login {
     });
   }
 
+  ngOnInit(): void {
+    // Configuramos el debounce para la búsqueda del username
+    this.loginForm.get('username')?.valueChanges
+      .pipe(
+        debounceTime(500), // Espera 500ms después de la última tecla
+        distinctUntilChanged(), // Solo si el valor cambió
+        takeUntil(this.destroy$) // Limpieza al destruir el componente
+      )
+      .subscribe(username => {
+        if (username && username.length > 2) { // Solo buscar si tiene al menos 3 caracteres
+          this.searchUsername(username);
+        }
+      });
+  }
+
+  ngAfterViewInit(): void {
+    // Focus inicial con timeout para evitar ExpressionChangedAfterItHasBeenCheckedError
+    this.focusUsernameInput();
+  }
+
+  focusUsernameInput(): void {
+    setTimeout(() => {
+      this.usernameInput.nativeElement.focus();
+    }, 100);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  searchUsername(username: string): void {
+    this.usersService.getAllUsers().subscribe({
+      next: (users) => {
+        const user = users.find((u: any) => u.username === username);
+        if (user) {
+          setTimeout(() => {
+            this.passwordInput.nativeElement.focus();
+          }, 0);
+        }
+      },
+      error: (error) => {
+        console.error('Error searching user:', error);
+      }
+    });
+  }
+
   changeRole(newRole: UserRole): void {
     if (this.role !== newRole) {
       this.slideDirection = this.role === 'Employee' ? 'left' : 'right';
       this.role = newRole;
+      this.focusUsernameInput();
     }
   }
 
@@ -131,7 +184,7 @@ export class Login {
           if (this.role.toLowerCase() === 'employee') {
             this.router.navigate([`/home/employee/${response.user.username}`]);
           } else if (this.role.toLowerCase() === 'admin') {
-            this.router.navigate([`/home/admin`]);
+            this.router.navigate([`/home/admin/${response.user.username}`]);
           }
         }, 1000);
       },
