@@ -180,11 +180,15 @@ export class Login implements AfterViewInit {
 
         // Navegación después de cerrar el alert
         setTimeout(() => {
-          console.log(response)
+          const navigationExtras: import('@angular/router').NavigationExtras = {
+            onSameUrlNavigation: 'reload' as const
+          };
           if (this.role.toLowerCase() === 'employee') {
-            this.router.navigate([`/home/employee/${response.user.username}`]);
+            this.router.navigate([`/home/employee/${response.user.username.split(' ').join('-')}`], navigationExtras)
+            .then(() => { window.location.reload(); });
           } else if (this.role.toLowerCase() === 'admin') {
-            this.router.navigate([`/home/admin/${response.user.username}`]);
+            this.router.navigate([`/home/admin/${response.user.username.split(' ').join('-')}`], navigationExtras)
+            .then(() => { window.location.reload(); });
           }
         }, 1000);
       },

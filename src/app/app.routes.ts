@@ -22,6 +22,5 @@ export const routes: Routes = [
     {
         path: 'home/admin/:username',
         component: AdminHome,
-        title: 'Admin Home',
     }
 ];

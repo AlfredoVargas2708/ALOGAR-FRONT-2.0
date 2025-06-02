@@ -1,0 +1,159 @@
+.employee-home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.employee-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #1b421d;
+    border-bottom: 1px solid #eee;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.employee-icon {
+    display: flex;
+    align-items: center;
+
+    p {
+        margin-left: 10px;
+        font-size: 16px;
+        color: #fff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+}
+
+.alogar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    h1 {
+        margin-left: 10px;
+        font-size: 20px;
+        color: #fff;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: contain;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+}
+
+.employee-icon img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 60px;
+    height: 60px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.new-sale {
+    display: flex;
+    gap: 15px;
+    padding: 0 20px;
+
+    .sale-fields {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .products {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 5px;
+        width: 20%;
+
+        label {
+            font-size: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        input {
+            font-size: 20px;
+            font-family: "Times New Roman",
+                Times,
+                serif;
+            border-radius: 4px;
+            width: 100px;
+            border: none;
+            text-align: center;
+            height: 100%;
+
+            &:focus {
+                outline: none;
+                border-color: #1b421d;
+            }
+        }
+    }
+
+    .products-table {
+        width: 100%;
+        overflow: auto;
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+
+            th {
+                text-align: center;
+                background-color: #1b421d;
+                color: #fff;
+                font-size: 18px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+
+            th:first-child {
+                border-top-left-radius: 8px;
+                border-left: none;
+            }
+
+            th:last-child {
+                border-top-right-radius: 8px;
+            }
+
+            th, td {
+                border-left: 1px solid #ccc;
+            }
+        }
+    }
+}
+
+p,
+h1,
+h2,
+h3 {
+    margin: 0;
+    padding: 0;
+}
