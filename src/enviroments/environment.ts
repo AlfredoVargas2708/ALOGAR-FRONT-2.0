@@ -1,4 +1,4 @@
 export const enviromentCloud = {
-    production: false,
+    production: true,
     apiUrl: 'https://alogar-back-2-0.onrender.com/api'
 }
