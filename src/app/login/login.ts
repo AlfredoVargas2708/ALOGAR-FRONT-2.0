@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { Users } from '../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Modal } from 'bootstrap';
@@ -47,7 +47,7 @@ export class Login implements AfterViewInit {
   @ViewChild('passwordInput', { static: true }) passwordInput!: ElementRef;
   @ViewChild('usernameInput', { static: true }) usernameInput!: ElementRef;
 
-  constructor(private usersService: Users, private fb: FormBuilder, private router: Router) {
+  constructor(private usersService: UsersService, private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       username: [''],
       password: [''],
