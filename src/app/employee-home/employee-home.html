@@ -1,82 +1,75 @@
 <div class="employee-home-container">
-    <ng-container *ngIf="!isLoading">
-        <div class="employee-navbar">
-            <div class="alogar-logo">
-                <img src="https://alogar.cl/cdn/shop/files/logo15_180x.png?v=1732044137" alt="Employee Logo">
-                <h1>Alogar</h1>
-            </div>
-            <div class="employee-icon">
-                <img src="https://img.icons8.com/bubbles/100/user.png" alt="Employee Icon">
-                <p>{{ username }}</p>
-            </div>
+    <div class="employee-navbar">
+        <div class="alogar-logo">
+            <img src="https://alogar.cl/cdn/shop/files/logo15_180x.png?v=1732044137" alt="Employee Logo">
+            <h1>Alogar</h1>
         </div>
-        <div class="new-sale">
-            <form [formGroup]="newSaleForm">
-                <div class="sale-fields">
-                    <div class="form-group">
-                        <label for="id_sale">N° Venta</label>
-                        <input type="number" readonly formControlName="id_sale">
-                    </div>
-                    <div class="form-group">
-                        <label for="sale_date">Fecha</label>
-                        <input type="text" formControlName="sale_date" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="total_sale">Total Venta</label>
-                        <input type="number" formControlName="total_sale" readonly>
-                    </div>
+        <div class="employee-icon">
+            <img src="https://img.icons8.com/bubbles/100/user.png" alt="Employee Icon">
+            <p>{{ username }}</p>
+        </div>
+    </div>
+    <div class="new-sale">
+        <form [formGroup]="newSaleForm">
+            <div class="sale-fields">
+                <div class="form-group">
+                    <label for="id_sale">N° Venta</label>
+                    <input type="number" readonly formControlName="id_sale">
                 </div>
-                <form [formGroup]="productForm" class="product-form">
-                    <div class="product-fields">
-                        <div class="form-group code">
-                            <label for="code">Código</label>
-                            <input #codeInput type="text" formControlName="code" (input)="onCodeInput($event)">
-                        </div>
-                        <div class="form-group product">
-                            <label for="product">Producto</label>
-                            <input type="text" formControlName="product" readonly>
-                        </div>
-                        <div class="form-group quantity">
-                            <label for="quantity">Cantidad</label>
-                            <input #quantityInput type="number" formControlName="quantity">
-                        </div>
-                        <div class="form-group price">
-                            <label for="price">Precio</label>
-                            <input type="number" formControlName="price" readonly>
-                        </div>
+                <div class="form-group">
+                    <label for="sale_date">Fecha</label>
+                    <input type="text" formControlName="sale_date" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="total_sale">Total Venta</label>
+                    <input type="number" formControlName="total_sale" readonly>
+                </div>
+            </div>
+            <form [formGroup]="productForm" class="product-form">
+                <div class="product-fields">
+                    <div class="form-group code">
+                        <label for="code">Código</label>
+                        <input #codeInput type="text" formControlName="code" (input)="onCodeInput($event)">
                     </div>
-                </form>
-                <div class="products">
-                    <h2>Productos</h2>
-                    <div class="products-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="form-group product">
+                        <label for="product">Producto</label>
+                        <input type="text" formControlName="product" readonly>
+                    </div>
+                    <div class="form-group quantity">
+                        <label for="quantity">Cantidad</label>
+                        <input #quantityInput type="number" formControlName="quantity">
+                    </div>
+                    <div class="form-group price">
+                        <label for="price">Precio</label>
+                        <input type="number" formControlName="price" readonly>
                     </div>
                 </div>
             </form>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="isLoading">
-        <div class="loading-container">
-            <div class="loader"></div>
-        </div>
-    </ng-container>
+            <div class="products">
+                <h2>Productos</h2>
+                <div class="products-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

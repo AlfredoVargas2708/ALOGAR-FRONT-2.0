@@ -20,7 +20,6 @@ export class EmployeeHome implements OnInit, AfterViewInit {
   total_sale: number = 0;
   newSaleForm: FormGroup;
   productForm: FormGroup;
-  isLoading: boolean = true;
 
   @ViewChild('codeInput') codeInput!: ElementRef;
   @ViewChild('quantityInput') quantityInput!: ElementRef;
@@ -68,7 +67,6 @@ export class EmployeeHome implements OnInit, AfterViewInit {
     this.salesService.getAllSales().subscribe((data) => {
       this.id_sale = data.length + 1;
       this.newSaleForm.patchValue({ id_sale: this.id_sale });
-      this.isLoading = false;
     })
   }
 
