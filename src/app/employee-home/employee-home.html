@@ -25,7 +25,7 @@
                     <input type="number" formControlName="total_sale" readonly>
                 </div>
             </div>
-            <form [formGroup]="productForm" class="product-form">
+            <div formGroupName="productForm" class="product-form">
                 <div class="product-fields">
                     <div class="form-group code">
                         <label for="code">Código</label>
@@ -44,7 +44,7 @@
                         <input type="number" formControlName="price" readonly>
                     </div>
                 </div>
-            </form>
+            </div>
             <div class="products">
                 <h2>Productos</h2>
                 <div class="products-table">

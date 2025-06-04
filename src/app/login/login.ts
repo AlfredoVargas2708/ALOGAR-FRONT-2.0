@@ -46,6 +46,7 @@ export class Login implements AfterViewInit {
 
   @ViewChild('passwordInput', { static: true }) passwordInput!: ElementRef;
   @ViewChild('usernameInput', { static: true }) usernameInput!: ElementRef;
+  @ViewChild('loginButton', { static: true }) loginButton!: ElementRef;
 
   constructor(private usersService: UsersService, private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
@@ -64,7 +65,7 @@ export class Login implements AfterViewInit {
     // Configuramos el debounce para la búsqueda del username
     this.loginForm.get('username')?.valueChanges
       .pipe(
-        debounceTime(500), // Espera 500ms después de la última tecla
+        debounceTime(200), // Espera 200ms después de la última tecla
         distinctUntilChanged(), // Solo si el valor cambió
         takeUntil(this.destroy$) // Limpieza al destruir el componente
       )
@@ -103,6 +104,20 @@ export class Login implements AfterViewInit {
       },
       error: (error) => {
         console.error('Error searching user:', error);
+      }
+    });
+  }
+
+  searchPassword(password: string): void {
+    this.usersService.getAllUsers().subscribe({
+      next: (users) => {
+        const user = users.find((u: any) => u.password === password);
+        if (user) {
+          this.login();
+        }
+      },
+      error: (error) => {
+        console.error('Error searching password:', error);
       }
     });
   }

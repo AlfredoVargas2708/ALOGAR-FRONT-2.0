@@ -19,7 +19,6 @@ export class EmployeeHome implements OnInit, AfterViewInit {
   id_sale: number = 1;
   total_sale: number = 0;
   newSaleForm: FormGroup;
-  productForm: FormGroup;
 
   @ViewChild('codeInput') codeInput!: ElementRef;
   @ViewChild('quantityInput') quantityInput!: ElementRef;
@@ -54,13 +53,14 @@ export class EmployeeHome implements OnInit, AfterViewInit {
       })],
       id_employee: [this.id_employee],
       products: this.fb.array([]),
+      productForm: this.fb.group({
+        code: [''],
+        product: [''],
+        price: [''],
+        quantity: [''],
+      }),
     });
-    this.productForm = this.fb.group({
-      code: [''],
-      product: [''],
-      price: [''],
-      quantity: [''],
-    });
+
   }
 
   ngOnInit() {
@@ -68,6 +68,10 @@ export class EmployeeHome implements OnInit, AfterViewInit {
       this.id_sale = data.length + 1;
       this.newSaleForm.patchValue({ id_sale: this.id_sale });
     })
+  }
+
+  get productForm() {
+    return this.newSaleForm.get('productForm') as FormGroup;
   }
 
   onCodeInput(event: any) {

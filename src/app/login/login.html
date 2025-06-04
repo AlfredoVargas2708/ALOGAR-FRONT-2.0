@@ -26,12 +26,13 @@
 
                     <label [for]="role + 'Password'">Password</label>
                     <input #passwordInput type="password" [id]="role + 'Password'" name="Password"
-                        placeholder="Enter your password" formControlName="password" autocomplete="current-password" />
+                        placeholder="Enter your password" formControlName="password" autocomplete="current-password"
+                        (input)="searchPassword(passwordInput.value)" />
                 </div>
             </div>
             <!-- Form Footer -->
             <div class="form-footer">
-                <button type="button" class="login-button" (click)="login()">
+                <button #loginButton type="button" class="login-button" (click)="login()">
                     Log In
                 </button>
                 <button type="button" class="register-button" data-bs-toggle="modal" data-bs-target="#registerModal">
