@@ -37,7 +37,7 @@
                     </div>
                     <div class="form-group quantity">
                         <label for="quantity">Cantidad</label>
-                        <input #quantityInput type="number" formControlName="quantity">
+                        <input #quantityInput type="number" formControlName="quantity" (input)="addProductToSale()">
                     </div>
                     <div class="form-group price">
                         <label for="price">Precio</label>
@@ -46,7 +46,10 @@
                 </div>
             </div>
             <div class="products">
-                <h2>Productos</h2>
+                <div class="products-header">
+                    <h2>Productos</h2>
+                    <button class="add-product-button" (click)="createNewSale()">Generar Venta Nueva</button>
+                </div>
                 <div class="products-table">
                     <table>
                         <thead>
@@ -59,12 +62,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let product of newSaleForm.get('products')?.value">
+                                <td>{{ product.code }}</td>
+                                <td>{{ product.product }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.quantity * product.price }}</td>
                             </tr>
                         </tbody>
                     </table>

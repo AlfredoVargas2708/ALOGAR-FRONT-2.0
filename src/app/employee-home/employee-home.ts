@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { SalesService } from '../../services/sales.service';
@@ -95,5 +95,34 @@ export class EmployeeHome implements OnInit, AfterViewInit {
         this.quantityInput.nativeElement.focus();
       }
     })
+  }
+
+  addProductToSale() {
+    const productForm = this.productForm;
+    const code = productForm.get('code')?.value;
+    const product = productForm.get('product')?.value;
+    const price = productForm.get('price')?.value;
+    const quantity = productForm.get('quantity')?.value;
+
+    if (code && product && price && quantity) {
+      (this.newSaleForm.get('products') as FormArray).push(this.fb.group({
+        code: [code],
+        product: [product],
+        price: [price],
+        quantity: [quantity],
+      }));
+      this.total_sale += price * quantity;
+      this.newSaleForm.patchValue({ total_sale: this.total_sale });
+      productForm.reset();
+      this.codeInput.nativeElement.focus();
+    }
+  }
+
+  createNewSale() {
+    const products = (this.newSaleForm.get('products') as FormArray).value;
+    if (products.length === 0) {
+      alert('No products added to the sale.');
+      return;
+    }
   }
 }

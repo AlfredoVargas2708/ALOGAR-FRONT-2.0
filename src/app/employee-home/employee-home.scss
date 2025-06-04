@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 0 15px;
 }
 
 .loading-container {
@@ -19,8 +20,7 @@
     padding: 10px 20px;
     background-color: #1b421d;
     border-bottom: 1px solid #eee;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 20px;
 }
 
 .employee-icon {
@@ -75,21 +75,12 @@ form {
 .new-sale {
     display: flex;
     gap: 15px;
-    padding: 0 20px;
 
     .sale-fields {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-    }
-
-    .products {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        justify-content: flex-start;
-        gap: 10px;
     }
 
     .form-group {
@@ -123,6 +114,39 @@ form {
             }
         }
     }
+}
+
+.products {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 10px;
+
+    .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .add-product-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: #1b421d;
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #14501a;
+            }
+        }
+    }
 
     .products-table {
         width: 100%;
@@ -138,20 +162,33 @@ form {
                 color: #fff;
                 font-size: 18px;
                 font-family: 'Times New Roman', Times, serif;
+                height: 40px;
+            }
+
+            td {
+                text-align: center;
+                padding: 10px;
+                font-size: 20px;
+                font-family: 'Times New Roman', Times, serif;
+                border-bottom: 1px solid #ccc;
+                height: 25px;
             }
 
             th:first-child {
                 border-top-left-radius: 8px;
                 border-left: none;
+                border-top: none;
             }
 
             th:last-child {
                 border-top-right-radius: 8px;
+                border-right: none;
+                border-top: none;
             }
 
             th,
             td {
-                border-left: 1px solid #ccc;
+                border: 1px solid #ccc;
             }
         }
     }
@@ -178,7 +215,8 @@ form {
             width: 100%;
         }
 
-        &.code, &.price {
+        &.code,
+        &.price {
             width: 20%;
         }
 
